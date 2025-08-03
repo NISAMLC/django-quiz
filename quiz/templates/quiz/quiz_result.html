@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ quiz_set.name }} - Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .result-box { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+        h1 { text-align: center; color: #2ecc71; }
+        .question { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #fafafa; }
+        .correct { color: green; font-weight: bold; }
+        .wrong { color: red; font-weight: bold; }
+        .back-btn { display: block; text-align: center; margin-top: 20px; }
+        .back-btn a { padding: 10px 15px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px; }
+        .back-btn a:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h1>{{ quiz_set.name }} Completed!</h1>
+        <p style="text-align:center;">Your Score: {{ score }} / {{ total }}</p>
+
+        <hr>
+        <h3>Review:</h3>
+        {% for item in results %}
+        <div class="question">
+            <p><strong>Q{{ forloop.counter }}: {{ item.question.question_text }}</strong></p>
+            <ul>
+                <li class="{% if item.user_answer == 1 %}{% if item.is_correct %}correct{% else %}wrong{% endif %}{% endif %}">
+                    {{ item.question.option1 }}
+                </li>
+                <li class="{% if item.user_answer == 2 %}{% if item.is_correct %}correct{% else %}wrong{% endif %}{% endif %}">
+                    {{ item.question.option2 }}
+                </li>
+                <li class="{% if item.user_answer == 3 %}{% if item.is_correct %}correct{% else %}wrong{% endif %}{% endif %}">
+                    {{ item.question.option3 }}
+                </li>
+                <li class="{% if item.user_answer == 4 %}{% if item.is_correct %}correct{% else %}wrong{% endif %}{% endif %}">
+                    {{ item.question.option4 }}
+                </li>
+            </ul>
+            <p>✅ Correct Answer: Option {{ item.question.correct_option }}</p>
+        </div>
+        {% endfor %}
+
+        <div class="back-btn">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

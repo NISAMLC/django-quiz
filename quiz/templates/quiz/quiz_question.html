@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ quiz_set.name }} - Question {{ question_index|add:1 }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .question-box { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+        h2 { text-align: center; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        .option { background: #eee; padding: 10px; border-radius: 5px; cursor: pointer; }
+        .option:hover { background: #ddd; }
+        button { background: #3498db; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="question-box">
+        <h2>Question {{ question_index|add:1 }} of {{ total_questions }}</h2>
+        <p>{{ question.question_text }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label class="option"><input type="radio" name="option" value="1" required> {{ question.option1 }}</label>
+            <label class="option"><input type="radio" name="option" value="2"> {{ question.option2 }}</label>
+            <label class="option"><input type="radio" name="option" value="3"> {{ question.option3 }}</label>
+            <label class="option"><input type="radio" name="option" value="4"> {{ question.option4 }}</label>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+</body>
+</html>
